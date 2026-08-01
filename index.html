@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interspousal Transfer Exclusion Guide — LA County Property Tax Fix</title>
+    <meta name="description" content="Guide to fixing improper 50% property reassessment after adding a spouse to a deed in LA County. Learn your rights under R&T Code §63.">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-secondary: #161b22;
+            --fg: #e6edf3;
+            --fg-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-hover: #79c0ff;
+            --border: #30363d;
+            --success: #3fb950;
+            --warning: #d29922;
+            --danger: #f85149;
+            --card-bg: #161b22;
+            --code-bg: #161b22;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { color: var(--accent-hover); text-decoration: underline; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+        header { text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+        h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 0.75rem; }
+        .subtitle { color: var(--fg-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+        .badge { display: inline-block; background: var(--accent); color: var(--bg); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; margin-top: 1rem; }
+        section { margin-bottom: 3rem; }
+        h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+        h3 { font-size: 1.2rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+        p { margin-bottom: 1rem; color: var(--fg); }
+        ul, ol { margin: 1rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .card.warning { border-left: 4px solid var(--warning); }
+        .card.success { border-left: 4px solid var(--success); }
+        .card.danger { border-left: 4px solid var(--danger); }
+        .card h3 { margin-top: 0; display: flex; align-items: center; gap: 0.5rem; }
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+        .checklist { list-style: none; padding-left: 0; }
+        .checklist li { position: relative; padding-left: 2rem; margin-bottom: 0.75rem; }
+        .checklist li::before { content: "✓"; position: absolute; left: 0; color: var(--success); font-weight: bold; }
+        .step { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+        .step-number { flex-shrink: 0; width: 2.5rem; height: 2.5rem; background: var(--accent); color: var(--bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; }
+        .step-content { flex: 1; }
+        .stat { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; margin: 0.25rem; font-size: 0.9rem; }
+        footer { text-align: center; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 0.9rem; }
+        .cta { text-align: center; margin: 2rem 0; }
+        .btn { display: inline-block; padding: 0.75rem 1.5rem; background: var(--accent); color: var(--bg); border-radius: 6px; font-weight: 600; transition: background 0.2s; }
+        .btn:hover { background: var(--accent-hover); text-decoration: none; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        @media (max-width: 600px) { .container { padding: 1.5rem 1rem; } .step { flex-direction: column; align-items: flex-start; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Interspousal Transfer Exclusion Guide</h1>
+            <p class="subtitle">Fixing the 50% improper reassessment after adding a spouse to a deed in LA County</p>
+            <span class="badge">R&T Code §63 Exclusion Applies</span>
+        </header>
+
+        <section>
+            <h2>The Situation</h2>
+            <p>Your friend got married, his wife owned a home, and they updated the deed in LA County to add him. The county's TITAN system treated this as a <strong>sale</strong> and reassessed <strong>50% of the property to fair market value</strong> — triggering a massive property tax increase.</p>
+            <p><strong>The good news:</strong> This was a mistake. Under California law, interspousal transfers are <em>statutorily excluded</em> from reassessment.</p>
+        </section>
+
+        <section>
+            <h2>Why the 50% Reassessment Happened</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Normal Rule</h3>
+                    <p>Adding someone to a deed = "change of ownership" → reassessment of transferred interest (50%) to current fair market value.</p>
+                </div>
+                <div class="card success">
+                    <h3>Spousal Exception</h3>
+                    <p>Transfers between spouses are <strong>explicitly excluded</strong> from "change of ownership" under <strong>R&T Code §63</strong>. The Prop 13 base year value stays intact.</p>
+                </div>
+                <div class="card warning">
+                    <h3>What Went Wrong</h3>
+                    <ul>
+                        <li>PCOR (BOE-502-A) wasn't filed or didn't claim the exclusion</li>
+                        <li>TITAN system/analyst didn't recognize the exemption</li>
+                        <li>Issued supplemental/escape assessment as if it were a regular sale</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Can This Be Fixed 5 Years Later?</h2>
+            <p><strong>Yes, generally — but timing mechanics matter.</strong></p>
+
+            <div class="card">
+                <h3>The Rules</h3>
+                <ul>
+                    <li>Claim must be filed <strong>within 3 years of transfer</strong> OR <strong>before transfer to a third party</strong> (whichever is earlier)</li>
+                    <li>If a <strong>Notice of Supplemental/Escape Assessment</strong> was mailed <strong>after</strong> those deadlines → <strong>additional 6 months from notice date</strong> to file</li>
+                    <li>If filed <strong>after 3 years</strong> but property hasn't been sold to a third party: exclusion still granted, but applies <strong>prospectively from lien date of claim year</strong> (not retroactive to original transfer)</li>
+                </ul>
+            </div>
+
+            <div class="card success">
+                <h3>At 5 Years Out — Still Viable If:</h3>
+                <ul class="checklist">
+                    <li>They <em>never received</em> a supplemental/escape notice until recently → may be within 6-month window for full retroactive relief</li>
+                    <li>Escape assessment rules let Assessor reopen/correct prior rolls up to <strong>4 years normally, 8 years</strong> if Change in Ownership Statement wasn't filed</li>
+                    <li>Assessor can cancel/reduce escape assessments and issue refunds/credits for overpaid taxes + interest</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Action Plan — What to Do Now</h2>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Gather Documents</h3>
+                    <ul class="checklist">
+                        <li>Recorded deed adding spouse to title</li>
+                        <li>Preliminary Change of Ownership Report (PCOR / BOE-502-A) if available</li>
+                        <li><strong>Marriage certificate</strong> (proof of marital status at time of transfer)</li>
+                        <li>All supplemental/escape assessment notices and tax bills showing 50% FMV reassessment</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Contact LA County Assessor's Office</h3>
+                    <p><strong>Say this:</strong> "This was an <em>interspousal transfer</em> under R&T Code §63; we believe it was mistakenly treated as a sale and reassessed 50% to FMV."</p>
+                    <p><strong>Ask for:</strong></p>
+                    <ul class="checklist">
+                        <li>Review/cancellation of supplemental/escape assessment based on interspousal exclusion</li>
+                        <li>What form(s) they want: usually a <strong>corrected PCOR</strong> and/or written <strong>claim for interspousal transfer exclusion</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>File the Claim</h3>
+                    <p>Depending on Assessor's response, submit:</p>
+                    <ul class="checklist">
+                        <li>Corrected BOE-502-A (PCOR) with spousal exclusion box checked</li>
+                        <li>Copy of deed + marriage certificate</li>
+                        <li>Specific claim for reassessment exclusion referencing §63</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>If Assessor Won't Cooperate — Appeal</h3>
+                    <p>File <strong>Application for Changed Assessment</strong> with the <strong>Assessment Appeals Board</strong> (form <strong>BOE-305-AH</strong>) within <strong>60 days</strong> of the mailing date on the escape/supplemental notice or tax bill.</p>
+                    <p>Bring: deed, PCOR, marriage proof, clear timeline of transfer date and notice receipt.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Key Forms & References</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>BOE-502-A</h3>
+                    <p>Preliminary Change of Ownership Report (PCOR) — claim the spousal exclusion here</p>
+                </div>
+                <div class="card">
+                    <h3>BOE-305-AH</h3>
+                    <p>Application for Changed Assessment — Assessment Appeals Board</p>
+                </div>
+                <div class="card">
+                    <h3>R&T Code §63</h3>
+                    <p>Statutory authority: interspousal transfers excluded from "change of ownership"</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Likelihood of Success</h2>
+            <div class="stat">On the law: <strong>Very strong</strong> — §63 is clear</div>
+            <div class="stat">On timing: <strong>Still viable at 5 years</strong> — especially with escape assessment</div>
+            <div class="stat">Best case: <strong>Full cancellation + refunds + interest</strong></div>
+            <div class="stat">Worst case: <strong>Prospective relief only</strong> — future taxes reduced, past years not refunded</div>
+        </section>
+
+        <section>
+            <h2>Sample Letter to LA County Assessor</h2>
+            <div class="code-block">
+To: Los Angeles County Assessor<br>
+Re: Interspousal Transfer Exclusion Claim — APN [parcel number]<br><br>
+Dear Assessor,<br><br>
+On [date], a deed was recorded adding [spouse name] to the title of the property at [address] (APN: [number]). This transfer was an <strong>interspousal transfer</strong> between married spouses, which is <strong>excluded from "change of ownership"</strong> under Revenue & Taxation Code §63.<br><br>
+However, the Assessor's system (TITAN) appears to have treated this as a sale, resulting in a 50% reassessment to fair market value and subsequent supplemental/escape assessments.<br><br>
+We request:<br>
+1. Review and cancellation of the supplemental/escape assessment(s) issued for this transfer<br>
+2. Application of the interspousal exclusion retroactive to the original transfer date<br>
+3. Refund/credit of all overpaid property taxes plus statutory interest<br><br>
+Enclosed: Recorded deed, marriage certificate, PCOR (BOE-502-A), and all assessment notices.<br><br>
+We are happy to provide any additional documentation needed.<br><br>
+Sincerely,<br>
+[Names]<br>
+[Phone] | [Email]
+            </div>
+        </section>
+
+        <footer>
+            <p>Built for a friend's gender reveal party — because nothing says "congrats on the baby" like saving thousands in property taxes.</p>
+            <p><a href="https://github.com/DonZzzilla" target="_blank">GitHub: DonZzzilla</a> | Source: <a href="https://pastebin.com/1yzSULGc" target="_blank">Original research</a></p>
+        </footer>
+    </div>
+</body>
+</html>
