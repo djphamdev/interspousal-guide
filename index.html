@@ -469,6 +469,32 @@
             .control-divider { height: 22px; }
         }
 
+        /* Nav buttons in control bar */
+        .nav-jump {
+            background: var(--toggle-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.4rem 0.6rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition);
+            color: var(--fg-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            gap: 0.25rem;
+            text-decoration: none;
+        }
+        .nav-jump:hover { background: var(--bg-tertiary); border-color: var(--accent); color: var(--accent); text-decoration: none; }
+        .nav-jump:active { transform: scale(0.95); }
+        .nav-jump svg { width: 16px; height: 16px; stroke: currentColor; }
+        .nav-jump-label { display: inline; }
+        @media (max-width: 600px) {
+            .nav-jump { padding: 0.35rem 0.45rem; }
+            .nav-jump-label { display: none; }
+        }
+
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -481,6 +507,8 @@
             .card:hover { transform: none; }
             .slider-thumb { transition: none; }
             .expandable-content { animation: none; }
+            .nav-jump:active { transform: none; }
+            .nav-jump:hover { transform: none; }
         }
     </style>
 </head>
@@ -504,6 +532,7 @@
                 <li><a href="#fixable"><span class="normal-text">Can This Be Fixed?</span><span class="simple-text">💰 Can You Get Money Back?</span></a></li>
                 <li><a href="#action"><span class="normal-text">4-Step Action Plan</span><span class="simple-text">📝 4 Steps to Fix It</span></a></li>
                 <li><a href="#agent"><span class="normal-text">Register as Tax Agent</span><span class="simple-text">🤝 Be Their Tax Hero</span></a></li>
+                <li><a href="#future"><span class="normal-text">Future: Divorce, Trusts & Kids</span><span class="simple-text">🗺️ Planning Ahead</span></a></li>
                 <li><a href="#forms"><span class="normal-text">Key Forms & Links</span><span class="simple-text">📄 All the Forms</span></a></li>
                 <li><a href="#success"><span class="normal-text">Likelihood of Success</span><span class="simple-text">🎲 Your Odds</span></a></li>
                 <li><a href="#letter"><span class="normal-text">Sample Letter to Assessor</span><span class="simple-text">✉️ Copy-Paste Letter</span></a></li>
@@ -714,6 +743,31 @@
             </div>
         </section>
 
+        <section id="future">
+            <h2><span class="normal-text">What About the Future? Divorce, Trusts & Kids</span><span class="simple-text">🗺️ Planning Ahead: Divorce, Trusts & Kids</span></h2>
+
+            <div class="card success">
+                <h3><span class="normal-text">💔 If They Ever Split — No Reassessment</span><span class="simple-text">💔 Divorce = No Tax Hike</span></h3>
+                <p><span class="normal-text">If the home goes back to L (it's her family home), the same interspousal exclusion under R&T Code §63 protects her. Transfers incident to divorce or legal separation are <strong>excluded</strong> from "change of ownership" — meaning <strong>no new reassessment</strong>. The Prop 13 base stays. This is protected by law regardless of what happens.</span>
+                <span class="simple-text">If home goes back to L (it's her family home), <strong>same law protects her</strong> 🛡️. R&T Code §63 says divorce transfers = no reassessment. Prop 13 base stays forever 📉</span></p>
+            </div>
+
+            <div class="card info">
+                <h3><span class="normal-text">🏠 Think About a Trust for the Kids</span><span class="simple-text">🏠 Trust = Protect Your Kids' Future</span></h3>
+                <p><span class="normal-text">Once this tax issue is resolved, it's worth considering putting the home in a <strong>trust</strong> for estate planning purposes. A trust can:</span>
+                <span class="simple-text">After we fix the tax issue, think about a <strong>trust</strong> for the kids. A trust can:</span></p>
+                <ul>
+                    <li><span class="normal-text">Avoid probate if something happens to you</span><span class="simple-text">Skip probate court ⚖️</span></li>
+                    <li><span class="normal-text">Pass the Prop 13 tax base to your children</span><span class="simple-text">Pass low taxes to kids 📉→👶</span></li>
+                    <li><span class="normal-text">Protect the asset for the next generation</span><span class="simple-text">Protect home for kids 💪</span></li>
+                </ul>
+                <p><span class="normal-text"><strong>⚠️ Important:</strong> You'd want a <strong>lawyer</strong> for the trust part. But here's the thing — lawyers typically take <strong>~30% of any refund</strong> if they handle the whole case. <strong>My advice:</strong> Do the refund filing yourselves (this guide has everything you need), then take the refund money and pay a lawyer to set up the trust separately. You keep more of your own money.</span>
+                <span class="simple-text"><strong>⚠️ Heads up:</strong> Lawyers take <strong>~30% of refunds</strong> if they do everything. <strong>Do the refund yourself</strong> (this guide = all you need), then use that money to pay a lawyer <strong>just</strong> for the trust. Keep more 💰</span></p>
+                <p><span class="normal-text">One kid now — but what about later? A trust handles it cleanly no matter how many little ones join the family. <strong>Consult a lawyer</strong> for trust-specific advice.</span>
+                <span class="simple-text">One kid now 👶 — but more later? Trust handles it all. <strong>Ask a lawyer</strong> about setting one up.</span></p>
+            </div>
+        </section>
+
         <section id="forms">
             <h2><span class="normal-text">Key Forms & Direct Links</span><span class="simple-text">📄 All Forms in One Place</span></h2>
             <div class="grid">
@@ -893,6 +947,14 @@ Thanks,
             </div>
             <span class="mode-label simple" data-mode="simple"><span class="normal-text">Simple</span><span class="simple-text">🎮 Simple</span></span>
         </div>
+
+        <div class="control-divider"></div>
+
+        <!-- Quick Nav -->
+        <a href="#main-content" class="nav-jump" title="Back to top">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+            <span class="nav-jump-label"><span class="normal-text">Top</span><span class="simple-text">⬆ Top</span></span>
+        </a>
     </div>
 
     <script>
