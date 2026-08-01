@@ -98,26 +98,46 @@
 
         .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
 
-        /* Theme Toggle */
-        .theme-toggle {
+        /* Unified Floating Control Bar */
+        .control-bar {
             position: fixed;
-            top: 1rem;
-            right: 1rem;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 100;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: var(--shadow-hover);
+            animation: slideUp 0.5s ease-out 0.7s both;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+        .control-divider {
+            width: 1px;
+            height: 28px;
+            background: var(--border);
+            flex-shrink: 0;
+        }
+
+        /* Theme Toggle Button (inside control bar) */
+        .theme-toggle {
             background: var(--toggle-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 0.6rem;
+            padding: 0.5rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all var(--transition);
-            box-shadow: var(--shadow);
         }
         .theme-toggle:hover { background: var(--bg-tertiary); border-color: var(--border-hover); transform: scale(1.05); }
         .theme-toggle:active { transform: scale(0.95); }
-        .theme-toggle svg { width: 22px; height: 22px; stroke: var(--fg); transition: transform 0.3s ease, opacity 0.3s ease; }
+        .theme-toggle svg { width: 20px; height: 20px; stroke: var(--fg); transition: transform 0.3s ease, opacity 0.3s ease; }
         .theme-toggle .moon { display: block; }
         .theme-toggle .sun { display: none; opacity: 0; transform: rotate(-90deg); }
         [data-theme="light"] .theme-toggle .moon { display: none; opacity: 0; transform: rotate(90deg); }
@@ -380,24 +400,12 @@
         [data-mode="simple"] .toc a { font-size: 1rem; padding: 0.75rem 1rem; }
         [data-mode="simple"] .expandable-content { font-size: 1rem; }
 
-        /* Mode Toggle Slider */
+        /* Mode Toggle Slider (inside control bar) */
         .mode-toggle {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            padding: 0.75rem 1.5rem;
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            box-shadow: var(--shadow-hover);
-            animation: slideUp 0.5s ease-out 0.7s both;
+            gap: 1rem;
         }
-        @keyframes slideUp { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
         .mode-label { 
             font-weight: 600; 
             font-size: 0.9rem; 
@@ -451,14 +459,14 @@
         @media (max-width: 600px) { 
             .container { padding: 1.5rem 1rem; padding-bottom: 100px; } 
             .step { flex-direction: column; align-items: flex-start; }
-            .theme-toggle { top: 0.5rem; right: 0.5rem; padding: 0.5rem; }
             .toc ul { grid-template-columns: 1fr; }
             h1 { font-size: 1.75rem; }
-            .mode-toggle { bottom: 1rem; padding: 0.6rem 1rem; gap: 1rem; }
+            .control-bar { bottom: 1rem; padding: 0.6rem 1rem; gap: 1rem; }
             .mode-label { font-size: 0.8rem; padding: 0.2rem 0.4rem; }
             .slider-track { width: 50px; height: 26px; }
             .slider-thumb { width: 20px; height: 20px; }
             [data-mode="simple"] .slider-thumb { transform: translateX(24px); }
+            .control-divider { height: 22px; }
         }
 
         /* Reduced motion */
@@ -478,23 +486,6 @@
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light theme" title="Toggle theme (dark/light)">
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-    </button>
 
     <div class="container" id="main-content">
         <header>
@@ -866,16 +857,39 @@ Thanks,
         </footer>
     </div>
 
-    <!-- Mode Toggle Slider -->
-    <div class="mode-toggle" id="modeToggle" role="group" aria-label="Language mode">
-        <span class="mode-label normal" data-mode="normal"><span class="normal-text">Normal</span><span class="simple-text">📖 Normal</span></span>
-        <div class="slider-track" id="sliderTrack" tabindex="0" role="switch" aria-checked="false" aria-label="Switch to simple mode">
-            <div class="slider-thumb">
-                <svg class="normal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line></svg>
-                <svg class="simple-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+    <!-- Unified Floating Control Bar: Theme + Mode -->
+    <div class="control-bar" id="controlBar" role="group" aria-label="Display preferences">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light theme" title="Toggle theme (dark/light)">
+            <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+
+        <div class="control-divider"></div>
+
+        <!-- Mode Toggle -->
+        <div class="mode-toggle" id="modeToggle" aria-label="Language mode">
+            <span class="mode-label normal" data-mode="normal"><span class="normal-text">Normal</span><span class="simple-text">📖 Normal</span></span>
+            <div class="slider-track" id="sliderTrack" tabindex="0" role="switch" aria-checked="false" aria-label="Switch to simple mode">
+                <div class="slider-thumb">
+                    <svg class="normal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                    <svg class="simple-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
             </div>
+            <span class="mode-label simple" data-mode="simple"><span class="normal-text">Simple</span><span class="simple-text">🎮 Simple</span></span>
         </div>
-        <span class="mode-label simple" data-mode="simple"><span class="normal-text">Simple</span><span class="simple-text">🎮 Simple</span></span>
     </div>
 
     <script>
