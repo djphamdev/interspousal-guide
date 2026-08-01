@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,51 +7,115 @@
     <meta name="description" content="Guide to fixing improper 50% property reassessment after adding a spouse to a deed in LA County. Learn your rights under R&T Code §63.">
     <style>
         :root {
+            /* Dark theme (default) */
             --bg: #0d1117;
             --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
             --fg: #e6edf3;
             --fg-muted: #8b949e;
             --accent: #58a6ff;
             --accent-hover: #79c0ff;
+            --accent-muted: #1f6feb;
             --border: #30363d;
             --success: #3fb950;
             --warning: #d29922;
             --danger: #f85149;
             --card-bg: #161b22;
             --code-bg: #161b22;
+            --input-bg: #0d1117;
+            --toggle-bg: #21262d;
         }
+
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --bg-secondary: #f6f8fa;
+            --bg-tertiary: #f3f4f6;
+            --fg: #1f2328;
+            --fg-muted: #656d76;
+            --accent: #0969da;
+            --accent-hover: #0550ae;
+            --accent-muted: #0969da;
+            --border: #d0d7de;
+            --success: #2da44e;
+            --warning: #9a6700;
+            --danger: #cf222e;
+            --card-bg: #ffffff;
+            --code-bg: #f6f8fa;
+            --input-bg: #ffffff;
+            --toggle-bg: #f3f4f6;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             background: var(--bg);
             color: var(--fg);
             line-height: 1.6;
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        a { color: var(--accent); text-decoration: none; }
+        a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
         a:hover { color: var(--accent-hover); text-decoration: underline; }
         .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
-        header { text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
-        h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 0.75rem; }
-        .subtitle { color: var(--fg-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
-        .badge { display: inline-block; background: var(--accent); color: var(--bg); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; margin-top: 1rem; }
+        
+        /* Header */
+        header { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: space-between;
+            margin-bottom: 3rem; 
+            padding-bottom: 2rem; 
+            border-bottom: 1px solid var(--border); 
+            gap: 1rem;
+        }
+        h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 0.75rem; text-align: center; }
+        .subtitle { color: var(--fg-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; text-align: center; }
+        .badge { display: inline-block; background: var(--accent); color: var(--bg); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+            background: var(--toggle-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover { background: var(--bg-tertiary); }
+        .theme-toggle svg { width: 20px; height: 20px; stroke: var(--fg); }
+        .theme-toggle .sun { display: none; }
+        [data-theme="light"] .theme-toggle .moon { display: none; }
+        [data-theme="light"] .theme-toggle .sun { display: block; }
+
         section { margin-bottom: 3rem; }
         h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
         h3 { font-size: 1.2rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
         p { margin-bottom: 1rem; color: var(--fg); }
         ul, ol { margin: 1rem 0 1rem 1.5rem; }
         li { margin-bottom: 0.5rem; }
+        
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 1.5rem;
             margin: 1.5rem 0;
+            transition: all 0.3s ease;
         }
         .card.warning { border-left: 4px solid var(--warning); }
         .card.success { border-left: 4px solid var(--success); }
         .card.danger { border-left: 4px solid var(--danger); }
         .card h3 { margin-top: 0; display: flex; align-items: center; gap: 0.5rem; }
+        
         .code-block {
             background: var(--code-bg);
             border: 1px solid var(--border);
@@ -61,34 +125,117 @@
             font-family: 'SF Mono', 'Fira Code', monospace;
             font-size: 0.9rem;
             margin: 1rem 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
         }
+        
         .checklist { list-style: none; padding-left: 0; }
         .checklist li { position: relative; padding-left: 2rem; margin-bottom: 0.75rem; }
         .checklist li::before { content: "✓"; position: absolute; left: 0; color: var(--success); font-weight: bold; }
+        
         .step { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
         .step-number { flex-shrink: 0; width: 2.5rem; height: 2.5rem; background: var(--accent); color: var(--bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; }
         .step-content { flex: 1; }
+        
         .stat { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; margin: 0.25rem; font-size: 0.9rem; }
+        
         footer { text-align: center; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 0.9rem; }
-        .cta { text-align: center; margin: 2rem 0; }
-        .btn { display: inline-block; padding: 0.75rem 1.5rem; background: var(--accent); color: var(--bg); border-radius: 6px; font-weight: 600; transition: background 0.2s; }
-        .btn:hover { background: var(--accent-hover); text-decoration: none; }
+        
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-        @media (max-width: 600px) { .container { padding: 1.5rem 1rem; } .step { flex-direction: column; align-items: flex-start; } }
+        
+        .parcel-data { 
+            background: var(--bg-secondary); 
+            border: 1px solid var(--border); 
+            border-radius: 6px; 
+            padding: 1rem; 
+            font-family: monospace; 
+            font-size: 0.85rem; 
+            overflow-x: auto; 
+        }
+        .parcel-data .line { margin-bottom: 0.4rem; }
+        .parcel-data .label { color: var(--fg-muted); }
+        .parcel-data .value { color: var(--accent); }
+        
+        .external-link { display: inline-flex; align-items: center; gap: 0.25rem; }
+        .external-link::after { content: "↗"; font-size: 0.75rem; opacity: 0.7; }
+        
+        .form-link { 
+            display: inline-block; 
+            padding: 0.5rem 1rem; 
+            background: var(--accent-muted); 
+            color: var(--bg); 
+            border-radius: 6px; 
+            font-weight: 600; 
+            font-size: 0.9rem;
+            margin: 0.25rem;
+            transition: all 0.2s;
+        }
+        .form-link:hover { 
+            background: var(--accent); 
+            color: var(--bg); 
+            text-decoration: none; 
+        }
+        
+        @media (max-width: 600px) { 
+            .container { padding: 1.5rem 1rem; } 
+            .step { flex-direction: column; align-items: flex-start; }
+            .theme-toggle { top: 0.5rem; right: 0.5rem; }
+        }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </button>
+
     <div class="container">
         <header>
-            <h1>Interspousal Transfer Exclusion Guide</h1>
-            <p class="subtitle">Fixing the 50% improper reassessment after adding a spouse to a deed in LA County</p>
-            <span class="badge">R&T Code §63 Exclusion Applies</span>
+            <div>
+                <h1>Interspousal Transfer Exclusion Guide</h1>
+                <p class="subtitle">Fixing the 50% improper reassessment after adding a spouse to a deed in LA County</p>
+                <span class="badge">R&T Code §63 Exclusion Applies</span>
+            </div>
         </header>
 
         <section>
             <h2>The Situation</h2>
-            <p>Your friend got married, his wife owned a home, and they updated the deed in LA County to add him. The county's TITAN system treated this as a <strong>sale</strong> and reassessed <strong>50% of the property to fair market value</strong> — triggering a massive property tax increase.</p>
+            <p>L & K got married. One spouse owned a home, and they updated the deed in LA County to add the other spouse. The county's TITAN system treated this as a <strong>sale</strong> and reassessed <strong>50% of the property to fair market value</strong> — triggering a massive property tax increase.</p>
             <p><strong>The good news:</strong> This was a mistake. Under California law, interspousal transfers are <em>statutorily excluded</em> from reassessment.</p>
+            <p class="card" style="background: var(--accent-muted); color: var(--bg); border-color: var(--accent);">
+                <strong>From Don & Ayako:</strong> Congratulations on the baby! 🎉 We wanted to give you something that lasts longer than onesies — this guide could save you thousands in property taxes. The marriage certificate is the key document; getting that to the Assessor with a corrected PCOR is the "easy fix" path.
+            </p>
+        </section>
+
+        <section>
+            <h2>L & K's Specific Parcel</h2>
+            <div class="card">
+                <h3>APN: 4041-008-021</h3>
+                <p><a href="https://portal.assessor.lacounty.gov/parceldetail/4041008021" target="_blank" class="external-link">View on LA County Assessor Portal</a></p>
+                <div class="parcel-data">
+                    <div class="line"><span class="label">Reassessment Date:</span> <span class="value">10/01/2021</span></div>
+                    <div class="line"><span class="label">% Interest Transferred:</span> <span class="value">50%</span></div>
+                    <div class="line"><span class="label">Document Number:</span> <span class="value">1501282</span></div>
+                    <div class="line"><span class="label">Ownership Code 1:</span> <span class="value">3 - Review Not Required</span></div>
+                    <div class="line"><span class="label">Ownership Code 2:</span> <span class="value">5 - Reappraisable</span></div>
+                    <div class="line"><span class="label">Document Type:</span> <span class="value">H - Reappraisal Transfer - No DTT</span></div>
+                    <div class="line"><span class="label">Document Reason Code:</span> <span class="value">M - Partial Interest Transfer - Complete Own-216</span></div>
+                    <div class="line"><span class="label">Verification Code:</span> <span class="value">K - PCOR-Single Parcel</span></div>
+                    <div class="line"><span class="label">Assessed Value Increase:</span> <span class="value">$547,292 (50% FMV)</span></div>
+                </div>
+            </div>
         </section>
 
         <section>
@@ -105,34 +252,52 @@
                 <div class="card warning">
                     <h3>What Went Wrong</h3>
                     <ul>
-                        <li>PCOR (BOE-502-A) wasn't filed or didn't claim the exclusion</li>
+                        <li>PCOR (BOE-502-A) was filed (Verification Code K) but likely didn't claim the spousal exclusion</li>
                         <li>TITAN system/analyst didn't recognize the exemption</li>
                         <li>Issued supplemental/escape assessment as if it were a regular sale</li>
+                        <li>Ownership Code 2 = "5 - Reappraisable" confirms system treated it as taxable</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section>
-            <h2>Can This Be Fixed 5 Years Later?</h2>
-            <p><strong>Yes, generally — but timing mechanics matter.</strong></p>
-
-            <div class="card">
-                <h3>The Rules</h3>
-                <ul>
-                    <li>Claim must be filed <strong>within 3 years of transfer</strong> OR <strong>before transfer to a third party</strong> (whichever is earlier)</li>
-                    <li>If a <strong>Notice of Supplemental/Escape Assessment</strong> was mailed <strong>after</strong> those deadlines → <strong>additional 6 months from notice date</strong> to file</li>
-                    <li>If filed <strong>after 3 years</strong> but property hasn't been sold to a third party: exclusion still granted, but applies <strong>prospectively from lien date of claim year</strong> (not retroactive to original transfer)</li>
+            <h2>Can This Be Fixed? Yes — Statute of Limitations & Refunds</h2>
+            <div class="card success">
+                <h3>Key Timeline</h3>
+                <ul class="checklist">
+                    <li>Reassessment: <strong>October 1, 2021</strong></li>
+                    <li>4-year statute of limitations for escape assessments: <strong>expires ~October 2025</strong></li>
+                    <li>We're still within the window — <strong>act now</strong></li>
                 </ul>
             </div>
 
-            <div class="card success">
-                <h3>At 5 Years Out — Still Viable If:</h3>
-                <ul class="checklist">
-                    <li>They <em>never received</em> a supplemental/escape notice until recently → may be within 6-month window for full retroactive relief</li>
-                    <li>Escape assessment rules let Assessor reopen/correct prior rolls up to <strong>4 years normally, 8 years</strong> if Change in Ownership Statement wasn't filed</li>
-                    <li>Assessor can cancel/reduce escape assessments and issue refunds/credits for overpaid taxes + interest</li>
+            <div class="card">
+                <h3>Refund Mechanics</h3>
+                <ul>
+                    <li><strong>3% annual interest</strong> on overpaid taxes (statutory rate per R&T Code §5151)</li>
+                    <li>Refunds will return taxes to <strong>pre-2022 levels</strong> (Prop 13 base year value)</li>
+                    <li>Escape assessment authority: up to <strong>4 years normally, 8 years</strong> if Change in Ownership Statement wasn't filed (R&T Code §532)</li>
+                    <li>Since PCOR verification code is "K" (PCOR-Single Parcel), a PCOR was filed — but likely didn't claim the spousal exclusion</li>
                 </ul>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Legal Authority: R&T Code §63</h3>
+                    <p><a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=63" target="_blank" class="external-link">Read the statute</a></p>
+                    <p>"Change of ownership" does not include interspousal transfers.</p>
+                </div>
+                <div class="card">
+                    <h3>Escape Assessment: R&T Code §532</h3>
+                    <p><a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=532" target="_blank" class="external-link">Read the statute</a></p>
+                    <p>4-year lookback (8 years if no COS filed).</p>
+                </div>
+                <div class="card">
+                    <h3>Refund Interest: R&T Code §5151</h3>
+                    <p><a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=5151" target="_blank" class="external-link">Read the statute</a></p>
+                    <p>3% per annum on overpayments.</p>
+                </div>
             </div>
         </section>
 
@@ -144,10 +309,11 @@
                 <div class="step-content">
                     <h3>Gather Documents</h3>
                     <ul class="checklist">
-                        <li>Recorded deed adding spouse to title</li>
-                        <li>Preliminary Change of Ownership Report (PCOR / BOE-502-A) if available</li>
+                        <li>Recorded deed adding spouse to title (Document #1501282)</li>
+                        <li>Preliminary Change of Ownership Report (PCOR / BOE-502-A) — verification code K confirms one exists</li>
                         <li><strong>Marriage certificate</strong> (proof of marital status at time of transfer)</li>
                         <li>All supplemental/escape assessment notices and tax bills showing 50% FMV reassessment</li>
+                        <li>Property tax bills from 2022-2024 showing overpayment</li>
                     </ul>
                 </div>
             </div>
@@ -156,25 +322,36 @@
                 <div class="step-number">2</div>
                 <div class="step-content">
                     <h3>Contact LA County Assessor's Office</h3>
-                    <p><strong>Say this:</strong> "This was an <em>interspousal transfer</em> under R&T Code §63; we believe it was mistakenly treated as a sale and reassessed 50% to FMV."</p>
+                    <p><strong>Say this:</strong> "This was an <em>interspousal transfer</em> under R&T Code §63; we believe it was mistakenly treated as a sale and reassessed 50% to FMV. Document #1501282, APN 4041-008-021."</p>
                     <p><strong>Ask for:</strong></p>
                     <ul class="checklist">
                         <li>Review/cancellation of supplemental/escape assessment based on interspousal exclusion</li>
                         <li>What form(s) they want: usually a <strong>corrected PCOR</strong> and/or written <strong>claim for interspousal transfer exclusion</strong></li>
+                        <li><strong>Refund claim forms</strong> for overpaid taxes + 3% interest</li>
                     </ul>
+                    <p>
+                        <a href="https://assessor.lacounty.gov/" target="_blank" class="form-link">LA County Assessor Homepage</a>
+                        <a href="https://assessor.lacounty.gov/contact-us" target="_blank" class="form-link">Contact Assessor</a>
+                    </p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-number">3</div>
                 <div class="step-content">
-                    <h3>File the Claim</h3>
-                    <p>Depending on Assessor's response, submit:</p>
+                    <h3>File the Claim & Refund Request</h3>
+                    <p>Submit to Assessor:</p>
                     <ul class="checklist">
                         <li>Corrected BOE-502-A (PCOR) with spousal exclusion box checked</li>
                         <li>Copy of deed + marriage certificate</li>
                         <li>Specific claim for reassessment exclusion referencing §63</li>
+                        <li><strong>Claim for Refund form</strong> (Assessor will provide) for taxes paid 2022-2024 + 3% interest</li>
                     </ul>
+                    <p>
+                        <a href="https://www.boe.ca.gov/proptaxes/pdf/boe-502-a.pdf" target="_blank" class="form-link">BOE-502-A (PCOR) Form</a>
+                        <a href="https://www.boe.ca.gov/proptaxes/pdf/boe-502-a-instructions.pdf" target="_blank" class="form-link">PCOR Instructions</a>
+                        <a href="https://www.boe.ca.gov/proptaxes/assessment-appeals.htm" target="_blank" class="form-link">Assessment Appeals Info</a>
+                    </p>
                 </div>
             </div>
 
@@ -183,7 +360,11 @@
                 <div class="step-content">
                     <h3>If Assessor Won't Cooperate — Appeal</h3>
                     <p>File <strong>Application for Changed Assessment</strong> with the <strong>Assessment Appeals Board</strong> (form <strong>BOE-305-AH</strong>) within <strong>60 days</strong> of the mailing date on the escape/supplemental notice or tax bill.</p>
-                    <p>Bring: deed, PCOR, marriage proof, clear timeline of transfer date and notice receipt.</p>
+                    <p>Bring: deed, PCOR, marriage proof, clear timeline of transfer date (10/01/2021) and notice receipt.</p>
+                    <p>
+                        <a href="https://www.boe.ca.gov/proptaxes/pdf/boe-305-ah.pdf" target="_blank" class="form-link">BOE-305-AH Appeal Form</a>
+                        <a href="https://bos.lacounty.gov/assessment-appeals-board/" target="_blank" class="form-link">LA County AAB Info</a>
+                    </p>
                 </div>
             </div>
         </section>
@@ -194,14 +375,22 @@
                 <div class="card">
                     <h3>BOE-502-A</h3>
                     <p>Preliminary Change of Ownership Report (PCOR) — claim the spousal exclusion here</p>
+                    <a href="https://www.boe.ca.gov/proptaxes/pdf/boe-502-a.pdf" target="_blank" class="form-link">Download PDF</a>
                 </div>
                 <div class="card">
                     <h3>BOE-305-AH</h3>
                     <p>Application for Changed Assessment — Assessment Appeals Board</p>
+                    <a href="https://www.boe.ca.gov/proptaxes/pdf/boe-305-ah.pdf" target="_blank" class="form-link">Download PDF</a>
                 </div>
                 <div class="card">
                     <h3>R&T Code §63</h3>
                     <p>Statutory authority: interspousal transfers excluded from "change of ownership"</p>
+                    <a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=63" target="_blank" class="form-link">Read Law</a>
+                </div>
+                <div class="card">
+                    <h3>Claim for Refund</h3>
+                    <p>Assessor's refund claim form — 3% interest on overpayments back to pre-2022</p>
+                    <a href="https://assessor.lacounty.gov/forms" target="_blank" class="form-link">Assessor Forms</a>
                 </div>
             </div>
         </section>
@@ -209,35 +398,68 @@
         <section>
             <h2>Likelihood of Success</h2>
             <div class="stat">On the law: <strong>Very strong</strong> — §63 is clear</div>
-            <div class="stat">On timing: <strong>Still viable at 5 years</strong> — especially with escape assessment</div>
-            <div class="stat">Best case: <strong>Full cancellation + refunds + interest</strong></div>
-            <div class="stat">Worst case: <strong>Prospective relief only</strong> — future taxes reduced, past years not refunded</div>
+            <div class="stat">On timing: <strong>Within 4-year window</strong> — escape assessment statute runs ~Oct 2025</div>
+            <div class="stat">Refunds: <strong>Pre-2022 tax levels + 3% interest</strong></div>
+            <div class="stat">Best case: <strong>Full cancellation + refunds + interest for 2022-2024</strong></div>
         </section>
 
         <section>
             <h2>Sample Letter to LA County Assessor</h2>
-            <div class="code-block">
-To: Los Angeles County Assessor<br>
-Re: Interspousal Transfer Exclusion Claim — APN [parcel number]<br><br>
-Dear Assessor,<br><br>
-On [date], a deed was recorded adding [spouse name] to the title of the property at [address] (APN: [number]). This transfer was an <strong>interspousal transfer</strong> between married spouses, which is <strong>excluded from "change of ownership"</strong> under Revenue & Taxation Code §63.<br><br>
-However, the Assessor's system (TITAN) appears to have treated this as a sale, resulting in a 50% reassessment to fair market value and subsequent supplemental/escape assessments.<br><br>
-We request:<br>
-1. Review and cancellation of the supplemental/escape assessment(s) issued for this transfer<br>
-2. Application of the interspousal exclusion retroactive to the original transfer date<br>
-3. Refund/credit of all overpaid property taxes plus statutory interest<br><br>
-Enclosed: Recorded deed, marriage certificate, PCOR (BOE-502-A), and all assessment notices.<br><br>
-We are happy to provide any additional documentation needed.<br><br>
-Sincerely,<br>
-[Names]<br>
-[Phone] | [Email]
-            </div>
+            <div class="code-block">To: Los Angeles County Assessor
+Re: Interspousal Transfer Exclusion Claim & Refund Request — APN 4041-008-021
+
+Dear Assessor,
+
+On October 1, 2021, Document #1501282 was recorded adding [spouse name] to the title of the property at [address] (APN: 4041-008-021). This transfer was an <strong>interspousal transfer</strong> between married spouses, which is <strong>excluded from "change of ownership"</strong> under Revenue & Taxation Code §63.
+
+However, the Assessor's system (TITAN) appears to have treated this as a sale, resulting in a 50% reassessment to fair market value ($547,292 increase) and subsequent supplemental/escape assessments. Ownership Code 2 "5 - Reappraisable" and Document Reason Code "M - Partial Interest Transfer" confirm the system processed this as a taxable transfer.
+
+The PCOR filed (Verification Code K - PCOR-Single Parcel) likely did not claim the interspousal exclusion. We are now submitting a corrected PCOR with the spousal exclusion claimed, along with the marriage certificate.
+
+We request:
+1. Review and cancellation of the supplemental/escape assessment(s) issued for this transfer
+2. Application of the interspousal exclusion retroactive to the original transfer date (10/01/2021)
+3. Refund/credit of all overpaid property taxes for tax years 2022-2024 plus statutory 3% interest
+4. Restoration of the Prop 13 base year value (pre-2022 tax levels)
+
+Enclosed: Recorded deed (Doc #1501282), marriage certificate, corrected PCOR (BOE-502-A), and all assessment notices.
+
+We are within the 4-year statute of limitations for escape assessments and request prompt processing.
+
+Sincerely,
+[Names]
+[Phone] | [Email]</div>
         </section>
 
         <footer>
-            <p>Built for a friend's gender reveal party — because nothing says "congrats on the baby" like saving thousands in property taxes.</p>
-            <p><a href="https://github.com/DonZzzilla" target="_blank">GitHub: DonZzzilla</a> | Source: <a href="https://pastebin.com/1yzSULGc" target="_blank">Original research</a></p>
+            <p>Built for L & K's gender reveal party — because nothing says "congrats on the baby" like saving thousands in property taxes.</p>
+            <p>From Don & Ayako 💙</p>
+            <p><a href="https://github.com/djphamdev/interspousal-guide" target="_blank">GitHub: djphamdev/interspousal-guide</a> | Source: <a href="https://pastebin.com/1yzSULGc" target="_blank">Original research</a> | Parcel: <a href="https://portal.assessor.lacounty.gov/parceldetail/4041008021" target="_blank">4041-008-021</a></p>
         </footer>
     </div>
+
+    <script>
+        (function() {
+            const toggle = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            
+            // Check for saved preference
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme) {
+                html.setAttribute('data-theme', savedTheme);
+            } else if (!prefersDark) {
+                html.setAttribute('data-theme', 'light');
+            }
+            
+            toggle.addEventListener('click', function() {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        })();
+    </script>
 </body>
 </html>
